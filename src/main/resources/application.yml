@@ -1,5 +1,5 @@
 spring:
     data:
         mongodb:
-            uri : mongodb+srv://keyurteqheal:XivjDSa5YxFeslJN@democurd.k7qgf.mongodb.net/
+            uri : mongodb+srv://keyurteqheal:XivjDSa5YxFeslJN@democurd.k7qgf.mongodb.net/Task?retryWrites=true&w=majority&ssl=true
             database : Task
