@@ -5,13 +5,13 @@ import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
-import com.demoproject.demo.model.Task;
+import com.demoproject.demo.model.RegistrationModel;
 
-public interface TaskRepository extends MongoRepository<Task, String> {
+public interface TaskRepository extends MongoRepository<RegistrationModel, String> {
 
-    List<Task> findBySeverity(int severity);
+    List<RegistrationModel> findByMobileNo(String mobileNo);
 
-    @Query("{ assignee: ?0 }")
-    List<Task> getTaskByAssignee(String assignee);
+    @Query("{ emailAddress: ?0 }")
+    List<RegistrationModel> getTaskByEmailAddress(String emailAddress);
 
 }

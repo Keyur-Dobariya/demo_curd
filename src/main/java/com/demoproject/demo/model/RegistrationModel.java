@@ -7,15 +7,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Document(collation = "tasks")
+@Document(collection = "user")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Task {
+public class RegistrationModel {
     @Id
-    private String taskId;
-    private String description;
-    private int severity;
-    private String assignee;
-    private int storyPoint;
+    private String userId;
+    private String userName;
+    private String mobileNo;
+    private String emailAddress;
+    private String password;
 }
