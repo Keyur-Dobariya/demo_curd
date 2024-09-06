@@ -59,7 +59,7 @@ public class AuthController {
         if (users.isEmpty()) {
             return new ApiResponse<>(false, "No user found with the provided mobile number.", null);
         }
-        return new ApiResponse<>(true, "User(s) retrieved successfully.", users);
+        return new ApiResponse<>(true, "Users retrieved successfully.", users);
     }
 
     @GetMapping("/getUserByEmailAddress/{emailAddress}")
@@ -68,7 +68,7 @@ public class AuthController {
         if (users.isEmpty()) {
             return new ApiResponse<>(false, "No user found with the provided email address.", null);
         }
-        return new ApiResponse<>(true, "User(s) retrieved successfully.", users);
+        return new ApiResponse<>(true, "Users retrieved successfully.", users);
     }
 
     @PutMapping("/updateUser")
