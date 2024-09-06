@@ -1,4 +1,4 @@
-package com.demoproject.demo.apiService;
+package com.demoproject.demo.api_service;
 
 public class ApiResponse<T> {
     private boolean status;

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.demoproject.demo.apiService.ApiResponse;
+import com.demoproject.demo.api_service.ApiResponse;
 import com.demoproject.demo.model.LoginRequest;
 import com.demoproject.demo.model.RegistrationModel;
 import com.demoproject.demo.service.TaskService;
