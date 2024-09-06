@@ -1,0 +1,5 @@
+spring:
+    data:
+        mongodb:
+            uri : mongodb+srv://keyurteqheal:XivjDSa5YxFeslJN@democurd.k7qgf.mongodb.net/
+            database : Task
