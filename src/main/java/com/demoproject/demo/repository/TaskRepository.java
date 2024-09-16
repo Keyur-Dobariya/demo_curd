@@ -9,7 +9,7 @@ import com.demoproject.demo.model.RegistrationModel;
 
 public interface TaskRepository extends MongoRepository<RegistrationModel, String> {
 
-    List<RegistrationModel> findByMobileNo(String mobileNo);
+    List<RegistrationModel> findByMobileNumber(String mobileNumber);
 
     @Query("{ emailAddress: ?0 }")
     List<RegistrationModel> getTaskByEmailAddress(String emailAddress);

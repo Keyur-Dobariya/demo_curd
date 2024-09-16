@@ -5,4 +5,4 @@ spring:
             uri : mongodb+srv://keyurteqheal:XivjDSa5YxFeslJN@democurd.k7qgf.mongodb.net/?retryWrites=true&w=majority&appName=DemoCurd&ssl=true
             database : User
 server:
-  port: 8081
+  port: 5589

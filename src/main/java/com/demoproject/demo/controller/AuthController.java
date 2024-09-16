@@ -1,6 +1,7 @@
 package com.demoproject.demo.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -13,6 +14,7 @@ import com.demoproject.demo.service.TaskService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -53,9 +55,9 @@ public class AuthController {
         }
     }
 
-    @GetMapping("/findUserUsingMobileNo/{mobileNo}")
-    public ApiResponse<List<RegistrationModel>> findUserUsingMobileNo(@PathVariable String mobileNo) {
-        List<RegistrationModel> users = service.getUserByMobileNo(mobileNo);
+    @GetMapping("/findUserUsingMobileNumber/{mobileNumber}")
+    public ApiResponse<List<RegistrationModel>> findUserUsingMobileNumber(@PathVariable String mobileNumber) {
+        List<RegistrationModel> users = service.getUserByMobileNumber(mobileNumber);
         if (users.isEmpty()) {
             return new ApiResponse<>(false, "No user found with the provided mobile number.", null);
         }
@@ -75,6 +77,16 @@ public class AuthController {
     public ApiResponse<RegistrationModel> updateUser(@RequestBody RegistrationModel task) {
         try {
             RegistrationModel updatedUser = service.updateUser(task);
+            return new ApiResponse<>(true, "User updated successfully.", updatedUser);
+        } catch (RuntimeException ex) {
+            return new ApiResponse<>(false, ex.getMessage(), null);
+        }
+    }
+
+    @PatchMapping("/updateUserFields/{userId}")
+    public ApiResponse<RegistrationModel> updateUserFields(@PathVariable String userId, @RequestBody Map<String, Object> updates) {
+        try {
+            RegistrationModel updatedUser = service.updateUserFields(userId, updates);
             return new ApiResponse<>(true, "User updated successfully.", updatedUser);
         } catch (RuntimeException ex) {
             return new ApiResponse<>(false, ex.getMessage(), null);
