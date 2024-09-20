@@ -1,5 +1,6 @@
 package com.demoproject.demo.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.demoproject.demo.api_service.ApiResponse;
 import com.demoproject.demo.model.LoginRequest;
 import com.demoproject.demo.model.RegistrationModel;
+import com.demoproject.demo.security.JwtHelper;
 import com.demoproject.demo.service.TaskService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,16 +21,23 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
 
 
 @RestController
+@RequestMapping("/auth")
 public class AuthController {
 
     @Autowired
     private TaskService service;
 
-    @PostMapping("/createUser")
+    @Autowired
+    private JwtHelper helper;
+
+
+    @PostMapping("/auth/createUser")
     @ResponseStatus(HttpStatus.CREATED)
     public ApiResponse<RegistrationModel> createUser(@RequestBody RegistrationModel task) {
         try {
@@ -39,7 +48,7 @@ public class AuthController {
         }
     }
     
-    @GetMapping("/getAllUsers")
+    @GetMapping("/home/getAllUsers")
     public ApiResponse<List<RegistrationModel>> getAllUser() {
         List<RegistrationModel> users = service.findAllUser();
         return new ApiResponse<>(true, "Users retrieved successfully.", users);
@@ -73,7 +82,7 @@ public class AuthController {
         return new ApiResponse<>(true, "Users retrieved successfully.", users);
     }
 
-    @PutMapping("/updateUser")
+    @PutMapping("/auth/updateUser")
     public ApiResponse<RegistrationModel> updateUser(@RequestBody RegistrationModel task) {
         try {
             RegistrationModel updatedUser = service.updateUser(task);
@@ -83,7 +92,7 @@ public class AuthController {
         }
     }
 
-    @PatchMapping("/updateUserFields/{userId}")
+    @PatchMapping("/auth/updateUserFields/{userId}")
     public ApiResponse<RegistrationModel> updateUserFields(@PathVariable String userId, @RequestBody Map<String, Object> updates) {
         try {
             RegistrationModel updatedUser = service.updateUserFields(userId, updates);
@@ -93,7 +102,7 @@ public class AuthController {
         }
     }
 
-    @DeleteMapping("/deleteUser/{userId}")
+    @DeleteMapping("/auth/deleteUser/{userId}")
     public ApiResponse<String> deleteUser(@PathVariable String userId) {
         try {
             String response = service.deleteUser(userId);
@@ -107,10 +116,16 @@ public class AuthController {
     public ApiResponse<RegistrationModel> loginUser(@RequestBody LoginRequest loginRequest) {
         try {
             RegistrationModel user = service.loginUser(loginRequest.getMobileOrEmail(), loginRequest.getPassword());
-            return new ApiResponse<>(true, "Login successful.", user);
+            String token = this.helper.generateToken(user);
+            return new ApiResponse<>(true, "Login successful.", token, user);
         } catch (RuntimeException ex) {
             return new ApiResponse<>(false, ex.getMessage(), null);
         }
+    }
+
+    @GetMapping("/loggedInUser")
+    public String getLoggedInUser(Principal principal) {
+        return principal.getName();
     }
 
 }

@@ -1,23 +1,21 @@
 package com.demoproject.demo.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@ToString
 public class LoginRequest {
+    private String jwtToken;
     private String mobileOrEmail;
     private String password;
-
-    public String getMobileOrEmail() {
-        return mobileOrEmail;
-    }
-
-    public void setMobileOrEmail(String mobileOrEmail) {
-        this.mobileOrEmail = mobileOrEmail;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }
 
