@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.demoproject.demo.api_service.ApiResponse;
 import com.demoproject.demo.model.LoginRequest;
 import com.demoproject.demo.model.RegistrationModel;
-import com.demoproject.demo.security.JwtHelper;
 import com.demoproject.demo.service.TaskService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,18 +22,17 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.AuthenticationManager;
 
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api")
 public class AuthController {
 
     @Autowired
     private TaskService service;
 
-    @Autowired
-    private JwtHelper helper;
+    // @Autowired
+    // private JwtHelper helper;
 
 
     @PostMapping("/auth/createUser")
@@ -48,7 +46,7 @@ public class AuthController {
         }
     }
     
-    @GetMapping("/home/getAllUsers")
+    @GetMapping("/getAllUsers")
     public ApiResponse<List<RegistrationModel>> getAllUser() {
         List<RegistrationModel> users = service.findAllUser();
         return new ApiResponse<>(true, "Users retrieved successfully.", users);
@@ -112,7 +110,7 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/login")
+    @PostMapping("/auth/login")
     public ApiResponse<RegistrationModel> loginUser(@RequestBody LoginRequest loginRequest) {
         try {
             RegistrationModel user = service.loginUser(loginRequest.getMobileOrEmail(), loginRequest.getPassword());
