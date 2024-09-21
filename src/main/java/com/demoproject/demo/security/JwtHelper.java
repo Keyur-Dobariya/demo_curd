@@ -52,9 +52,9 @@ public class JwtHelper {
     }
 
     //generate token for user
-    public String generateToken(RegistrationModel userDetails) {
+    public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
-        return doGenerateToken(claims, userDetails.getFullName());
+        return doGenerateToken(claims, userDetails.getUsername());
     }
 
     //while creating the token -

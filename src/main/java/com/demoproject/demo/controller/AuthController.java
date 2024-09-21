@@ -116,8 +116,8 @@ public class AuthController {
     public ApiResponse<RegistrationModel> loginUser(@RequestBody LoginRequest loginRequest) {
         try {
             RegistrationModel user = service.loginUser(loginRequest.getMobileOrEmail(), loginRequest.getPassword());
-            String token = this.helper.generateToken(user);
-            return new ApiResponse<>(true, "Login successful.", token, user);
+            // String token = this.helper.generateToken(user);
+            return new ApiResponse<>(true, "Login successful.", user);
         } catch (RuntimeException ex) {
             return new ApiResponse<>(false, ex.getMessage(), null);
         }
