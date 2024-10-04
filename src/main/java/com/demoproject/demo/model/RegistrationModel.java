@@ -32,5 +32,6 @@ public class RegistrationModel {
     private String profilePhoto;
     private String deviceId;
     private String onesignalPlayerId;
+    private String jwtToken;
     private Map<String, Boolean> userPermission;
 }

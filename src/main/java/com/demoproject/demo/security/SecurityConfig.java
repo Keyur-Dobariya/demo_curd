@@ -1,35 +1,39 @@
-// package com.demoproject.demo.security;
+package com.demoproject.demo.security;
 
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.context.annotation.Bean;
-// import org.springframework.context.annotation.Configuration;
-// import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-// import org.springframework.security.config.http.SessionCreationPolicy;
-// import org.springframework.security.web.SecurityFilterChain;
-// import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 
-// @Configuration
-// public class SecurityConfig {
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
 
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.csrf().disable()
+            .authorizeRequests()
+            .requestMatchers("/api/register", "/api/login").permitAll() // Allow access to these endpoints
+            .anyRequest().authenticated(); // All other requests require authentication
 
-//     @Autowired
-//     private JwtAuthenticationEntryPoint point;
-//     @Autowired
-//     private JwtAuthenticationFilter filter;
+        return http.build();
+    }
 
-//     @Bean
-//     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-//         http.csrf(csrf -> csrf.disable())
-//                 .authorizeRequests().
-//                 requestMatchers("/auth/login", "/auth/createUser").permitAll()
-//                 .anyRequest()
-//                 .authenticated()
-//                 .and().exceptionHandling(ex -> ex.authenticationEntryPoint(point))
-//                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-//         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
-//         return http.build();
-//     }
+    // @Bean
+    // public UserDetailsService userDetailsService() {
+    //     return new CustomUserDetailsService(); // Implement this service to load user details
+    // }
 
-
-// }
+    // @Bean
+    // public void authenticationManager(AuthenticationManagerBuilder auth) throws Exception {
+    //     auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
+    // }
+}

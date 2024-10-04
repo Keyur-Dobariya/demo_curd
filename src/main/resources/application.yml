@@ -1,8 +1,8 @@
-spring:
-    data:
-        mongodb:
-            # uri : mongodb+srv://keyurteqheal:XivjDSa5YxFeslJN@democurd.k7qgf.mongodb.net/
-            # uri: mongodb+srv://keyurteqheal:XivjDSa5YxFeslJN@democurd.k7qgf.mongodb.net/?retryWrites=true&w=majority&appName=DemoCurd&ssl=true
-            # uri: mongodb+srv://keyurteqheal:XivjDSa5YxFeslJN@democurd.k7qgf.mongodb.net/User?retryWrites=true&w=majority&appName=DemoCurd&ssl=true&connectTimeoutMS=30000&socketTimeoutMS=30000
-            uri: mongodb+srv://keyurteqheal:XivjDSa5YxFeslJN@democurd.k7qgf.mongodb.net/User?retryWrites=true&w=majority&appName=DemoCurd&tls=true&tlsAllowInvalidCertificates=true
-            database: User
+# spring:
+#     data:
+#         mongodb:
+#             # uri : mongodb+srv://keyurteqheal:XivjDSa5YxFeslJN@democurd.k7qgf.mongodb.net/
+#             uri: mongodb+srv://keyurteqheal:XivjDSa5YxFeslJN@democurd.k7qgf.mongodb.net/?retryWrites=true&w=majority&appName=DemoCurd&ssl=true
+#             # uri: mongodb+srv://keyurteqheal:XivjDSa5YxFeslJN@democurd.k7qgf.mongodb.net/User?retryWrites=true&w=majority&appName=DemoCurd&ssl=true&connectTimeoutMS=30000&socketTimeoutMS=30000
+#             # uri: mongodb+srv://keyurteqheal:XivjDSa5YxFeslJN@democurd.k7qgf.mongodb.net/User?retryWrites=true&w=majority&appName=DemoCurd&tls=true&tlsAllowInvalidCertificates=true
+#             database: User

@@ -8,8 +8,10 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.demoproject.demo.api_service.JwtUtil;
 import com.demoproject.demo.model.RegistrationModel;
 import com.demoproject.demo.repository.TaskRepository;
 
@@ -18,6 +20,12 @@ public class TaskService {
 
     @Autowired
     private TaskRepository repository;
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     public RegistrationModel addUser(RegistrationModel registration) {
         if (registration.getFullName().isEmpty()) {
@@ -164,6 +172,7 @@ public class TaskService {
             throw new RuntimeException("Invalid credentials");
         }
         RegistrationModel user = users.get(0);
+        user.setJwtToken(jwtUtil.generateToken(user.getEmailAddress()));
         if (!user.getPassword().equals(password)) {
             throw new RuntimeException("Invalid credentials");
         }

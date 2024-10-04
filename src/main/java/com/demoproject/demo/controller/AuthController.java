@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.demoproject.demo.api_service.ApiResponse;
 import com.demoproject.demo.model.LoginRequest;
 import com.demoproject.demo.model.RegistrationModel;
+import com.demoproject.demo.security.JwtService;
 import com.demoproject.demo.service.TaskService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,6 +34,9 @@ public class AuthController {
 
     // @Autowired
     // private JwtHelper helper;
+
+    @Autowired
+    private JwtService jwtService;
 
 
     @PostMapping("/auth/createUser")
@@ -110,12 +114,14 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/auth/login")
-    public ApiResponse<RegistrationModel> loginUser(@RequestBody LoginRequest loginRequest) {
+    @PostMapping("/login")
+    public ApiResponse<RegistrationModel> loginUser(@RequestBody String mobileOrEmail, @RequestBody String password) {
+    // public ApiResponse<RegistrationModel> loginUser(@RequestBody LoginRequest loginRequest) {
         try {
-            RegistrationModel user = service.loginUser(loginRequest.getMobileOrEmail(), loginRequest.getPassword());
-            // String token = this.helper.generateToken(user);
-            return new ApiResponse<>(true, "Login successful.", user);
+            RegistrationModel user = service.loginUser(mobileOrEmail, password);
+            // RegistrationModel user = service.loginUser(loginRequest.getMobileOrEmail(), loginRequest.getPassword());
+            // String token = jwtService.generateToken(user.getEmailAddress(), user.getPassword());
+            return new ApiResponse<>(true, "Login successful.", user.getJwtToken(), user);
         } catch (RuntimeException ex) {
             return new ApiResponse<>(false, ex.getMessage(), null);
         }
